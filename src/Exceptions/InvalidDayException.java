@@ -1,16 +1,15 @@
-package model;
+package Exceptions;
 
-public class InvalidIDException extends Exception{
+public class InvalidDayException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
 	private String message;
 	
-	public InvalidIDException() {
-		this.message = "No puede ingresar porque es menor de edad";
+	public InvalidDayException() {
+		this.message = "No puede ingresar porque tiene pico y cedula";
 	}
 	
 	public String getMessage() {
@@ -19,5 +18,5 @@ public class InvalidIDException extends Exception{
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
+
 }

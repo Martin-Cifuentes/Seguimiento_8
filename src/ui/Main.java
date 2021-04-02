@@ -4,8 +4,8 @@ import java.util.Calendar;
 import java.util.Scanner;
 import model.Type;
 import model.Client;
-import model.InvalidDayException;
-import model.InvalidIDException;
+import Exceptions.InvalidDayException;
+import Exceptions.InvalidIDException;
 
 public class Main {
 	
@@ -47,12 +47,8 @@ public class Main {
 	}
 	
 	public static void askData () throws Exception  {
-		/*Calendar c = Calendar.getInstance();
-		int dia = Integer.parseInt(Integer.toString(c.get(Calendar.DATE)));*/
-		boolean perm;
 		String id = "";
 		String type = "";
-		int testNum;
 		Type clientType;
 		
 		System.out.println("Seleccione el tipo de identificación\n (1) TI -Tarjeta de Identidad\n"
