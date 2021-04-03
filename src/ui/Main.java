@@ -1,17 +1,15 @@
 package ui;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Scanner;
-import model.Type;
-import model.Client;
+import model.Market;
 import Exceptions.InvalidDayException;
 import Exceptions.InvalidIDException;
 
 public class Main {
 	
-	public static ArrayList<Client> clients = new ArrayList<Client>();
+	//public static ArrayList<Client> clients = new ArrayList<Client>();
 	public static Scanner sc = new Scanner(System.in);
-	public static int totalClients = 0;
+	
+	public static Market market = new Market("Mi barrio te quiere");
 	
 	public static void main (String[]args) {
 		int terminar = 0;
@@ -26,10 +24,10 @@ public class Main {
 		String ans = sc.nextLine();
 		try {
 			if(ans.equals("1")) {
-				totalClients++;
+				market.totalClients++;
 				askData();
 			}else if(ans.equals("2")) {
-				showInfo();
+				market.showInfo();
 			}else if(ans.equals("3")) {
 				return Integer.parseInt(ans);
 			}else {
@@ -49,77 +47,25 @@ public class Main {
 	public static void askData () throws Exception  {
 		String id = "";
 		String type = "";
-		Type clientType;
+		boolean clientIn;
 		
 		System.out.println("Seleccione el tipo de identificación\n (1) TI -Tarjeta de Identidad\n"
 				+ " (2) CC - Cédula de Ciudadanía\n (3) PP -Pasaporte-\n (4) CE -Cédula de Extranjería-");
 		
 		type = sc.nextLine();
-		clientType = validateIDType(type);
-		if(clientType == null) {
-			throw new Exception("Por favor inserte un valor valido");
-		}
 		
 		System.out.println("Inserte el número de identidad");
 		id = sc.nextLine();
-		validateID(id);
-		validateDayID(id);
-		clients.add(new Client(id,clientType));
-		System.out.println("Cliente ingresado con exito");
-	}
-	
-	public static Type validateIDType (String type) throws InvalidIDException{
-		Type clientType = null;
-		// si es TI lanza error
-		if(type.equals("1")) {
-			throw new InvalidIDException();
-		}else if(type.equals("2")) {
-			clientType = Type.CC;
-		}else if(type.equals("3")) {
-			clientType = Type.PP;
-		}else if(type.equals("4")) {
-			clientType = Type.CE;
-		}
-		return clientType;
-	}
-	
-	/**
-	 * las personas cuyo documento tiene el penúltimo número par, pueden salir si el día
-	 * del mes es un número impar, y viceversa
-	 * @param id
-	 * @throws InvalidDayException
-	 */
-	public static void validateDayID(String id) throws InvalidDayException {
-		int testNum = id.charAt(id.length() - 2);//obtiene el penultimo caracter del id
-		// si el dia es par y el doc es par, no puede ingresar
-		if(Calendar.getInstance().get(Calendar.DATE) % 2 == 0) { 
-			if(testNum % 2 == 0) {
-				throw new InvalidDayException();
-			}
-		}
-		// si el dia es impar y el doc es impar, no puede ingresar
-		else {
-			if(testNum % 2 != 0) {
-				throw new InvalidDayException();
-			}
-		}
-	}
-	
-	public static void validateID(String id) throws Exception {		
-		if(id.length() < 2) {
-			throw new Exception ("El numero de identificacion no es valido");
-		}
-	}
-	
-	public static void showInfo() {
-		if(clients.isEmpty()) {
-			System.out.println("Aun no se han agregado clientes");
+		
+		clientIn = market.addClient(id,type);
+		
+		if(clientIn == false) {
+			throw new Exception("Por favor inserte un valor valido");
 		}else {
-			for(int i = 0; i < clients.size(); i++) {
-				System.out.println(clients.get(i));
-			}
-			System.out.println("\nLa cantidad total de clientes que ha ingresado es: " + clients.size());
+			System.out.println("Cliente ingresado con exito");
 		}
-		System.out.println("\nLa cantidad total de clientes que han intentado ingresar son: " + totalClients);
+		
 	}
+	
+	
 }
