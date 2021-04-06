@@ -4,11 +4,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class ClientTest {
-
+public class ClientTest {
+	
+	public void setUpScenary1() {
+	}
+	
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void testClient() {
+		setUpScenary1();
+		
+		String id = "9234892874";
+		Type t = Type.CC;
+		
+		Client c = new Client(id,t);
+		
+		assertEquals(id, c.getId());
+		assertEquals(t, c.getType());
+		
 	}
 
 }

@@ -8,11 +8,13 @@ import Exceptions.InvalidIDException;
 
 public class Market {
 	public String name;
-	public static ArrayList<Client> clients = new ArrayList<Client>();
+	public ArrayList<Client> clients;
 	public int totalClients = 0;
 	
 	public Market(String name) {
 		this.name = name;
+		this.clients = new ArrayList<Client>();
+		this.totalClients = 0;
 	}
 	
 	public boolean addClient(String id, String type) throws Exception {
@@ -84,4 +86,29 @@ public class Market {
 		}
 		System.out.println("\nLa cantidad total de clientes que han intentado ingresar son: " + totalClients);
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public ArrayList<Client> getClients() {
+		return clients;
+	}
+	
+	public void setClients(ArrayList<Client> clients) {
+		this.clients = clients;
+	}
+
+	public int getTotalClients() {
+		return totalClients;
+	}
+
+	public void setTotalClients(int totalClients) {
+		this.totalClients = totalClients;
+	}
+	
 }
